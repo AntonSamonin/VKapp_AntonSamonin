@@ -20,15 +20,4 @@ class Group  {
     
 }
 
-struct GroupsBase {
-    var elements = [Group]()
-    
-    mutating func push(_ group: Group){
-        elements.append(group)
-    }
-    
-    mutating func pop(index: Int) -> Group? {
-        guard index >= 0 && index < elements.count else {return nil}
-        return elements[index]
-    }
-}
+

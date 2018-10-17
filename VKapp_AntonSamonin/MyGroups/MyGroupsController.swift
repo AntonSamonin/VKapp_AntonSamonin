@@ -8,24 +8,32 @@
 
 import UIKit
 
-class MyGroupsController: UITableViewController {
+class MyGroupsController: UITableViewController, UISearchBarDelegate {
 
-    var groups = GroupsBase()
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var myGroupsToShow = [Group]()
+    var myGroups = [Group]()
+    
+    
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if segue.identifier == "addGroup" {
             let allGroupsController = segue.source as! AllGroupsController
             if let indexPath = allGroupsController.tableView.indexPathForSelectedRow {
                 
-                let group = allGroupsController.groups.elements[indexPath.row]
+                let group = allGroupsController.groups[indexPath.row]
                 var test = true
-                for testGroup in groups.elements {
+                for testGroup in myGroups {
                 if testGroup.name == group.name {
                test = false
                     break
                 }
             }
-                if test == true {groups.push(group)}
+                if test == true {
+                   myGroups.append(group)
+                    myGroupsToShow = myGroups
+                }
             }
             
             
@@ -36,7 +44,9 @@ class MyGroupsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+   
+     
+        searchBar.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -53,14 +63,14 @@ class MyGroupsController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return groups.elements.count
+        return myGroupsToShow.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupsCell", for: indexPath) as! MyGroupsCell
 
-        let group = groups.elements[indexPath.row]
+        let group = myGroupsToShow[indexPath.row]
         
         cell.myGroupsName.text = group.name
         cell.myGroupsAva.image = group.groupAvatar
@@ -82,12 +92,25 @@ class MyGroupsController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            groups.elements.remove(at: indexPath.row)
+            myGroupsToShow.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }    
     }
     
 
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+           myGroupsToShow = myGroups
+            tableView.reloadData()
+            return
+        }
+        myGroupsToShow = myGroupsToShow.filter{
+            $0.name.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
+    }
+
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {

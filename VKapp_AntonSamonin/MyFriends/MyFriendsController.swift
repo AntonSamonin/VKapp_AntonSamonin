@@ -8,31 +8,36 @@
 
 import UIKit
 
-class MyFriendsController: UITableViewController {
+class MyFriendsController: UITableViewController, UISearchBarDelegate {
     
-    var friends = FriendsBase()
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var friends = [Friend]()
+    var friendsToShow = [Friend]()
    
     var friendPhotos: UIImage?
     
+    var letters = [Character]()
+    
     var friendsNames = ["Артем","Костя", "Вика", "Александр", "Марат"]
+    var friendsSurname = ["Мирочник","Суслин","Бобровская","Кречетов","Эльдаров"]
     var avatarNames = ["Артем","Костя","Вика","Александр","Марат"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         for count in 0...(friendsNames.count-1) {
             let newAvatar = UIImage(named: avatarNames[count])
-            let friend = Friend(name: friendsNames[count], avatar: newAvatar!)
-               friends.push(friend: friend)
+            let friend = Friend(name: friendsNames[count], surname: friendsSurname[count], avatar: newAvatar!)
+               friends.append(friend)
         }
+        friendsToShow = friends
+        createLettersArray()
+        searchBar.delegate = self
+    }
        
         
         
-        
-        
-        
-        
-        
-        func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
         }
         // Uncomment the following line to preserve selection between presentations
@@ -40,33 +45,70 @@ class MyFriendsController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+       
+        return String(letters[section])
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
     }
 
     // MARK: - Table view data source
 // Метод в котором мы обязаны вернуть количество секций в таблице.
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return letters.count
     }
 //метод, ккоторый возвращает количество строк в секции.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return friends.elements.count
+     var numberOfRows = 0
+        for i in friendsToShow {
+            if i.surname.first == letters[section] {
+                numberOfRows += 1
+            }
+        
+        }
+        return numberOfRows
     }
+        
 
     //
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! MyFriendsCell
         
-        let friend = friends.pop(indexPath.row)
-        cell.friendsName.text = friend?.name
-        cell.friendsAva.image = friend?.avatar
+        for i in friendsToShow {
+            if i.surname.first == letters[indexPath.section] {
+                cell.friendsName.text = i.name + " " + i.surname
+                cell.friendsAva.image = i.avatar
+            }
+        }
 
         return cell
     }
     
     
+    func createLettersArray() {
+        var localLetters = Set<Character>()
+        for i in friendsToShow {
+            localLetters.insert(i.surname.first!)
+        }
+        letters = localLetters.sorted()
+    }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            friendsToShow = friends
+            tableView.reloadData()
+        return
+        }
+        friendsToShow = friendsToShow.filter{
+            $0.name.lowercased().contains(searchText.lowercased()) || $0.surname.lowercased().contains(searchText.lowercased())
+        }
+            tableView.reloadData()
+    }
+}
     
 
     /*
@@ -114,4 +156,4 @@ class MyFriendsController: UITableViewController {
     }
     */
 
-}
+

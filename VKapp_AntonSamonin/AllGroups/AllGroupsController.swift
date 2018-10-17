@@ -8,35 +8,29 @@
 
 import UIKit
 
-class AllGroupsController: UITableViewController {
+class AllGroupsController: UITableViewController, UISearchBarDelegate  {
   
-    var searchController:UISearchController!
+    @IBOutlet weak var searchBarAllGroups: UISearchBar!
     
-    var groups = GroupsBase()
+    var groups = [Group]()
+    var groupsToShow = [Group]()
+    
     
     var groupsNames = ["GeekBrains","BOOM","KudaGo","Большая Деревня","Netflix"]
     var groupsAva = ["GeekBrains","BOOM","KudaGo","Большая Деревня","Netflix"]
 
     
-//    var searchResults = [allGroups]
-//
-//    func filterContent(for searchText: String) {
-//        searchResults = allGroups.filter({ (group) -> Bool in
-//            if let name = group.name {
-//                let isMatch = name.localizedCaseInsensitiveContains(searchText)
-//                return isMatch
-//            }
-//            return false
-//        })
-//    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         for count in 0...(groupsNames.count-1) {
             let newAvatar = UIImage(named: groupsAva[count])
             let group = Group(name: groupsNames[count], groupAvatar: newAvatar!)
-            groups.push(group)
+            groups.append(group)
+            
         }
+        groupsToShow = groups
+        searchBarAllGroups.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -53,19 +47,30 @@ class AllGroupsController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return groups.elements.count
+        return groupsToShow.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllGroupsCell", for: indexPath) as! AllGroupsCell
-        let group = groups.pop(index: indexPath.row)
-        cell.allGroupsName.text = group?.name
-        cell.allGroupsAva.image = group?.groupAvatar
+        let group = groupsToShow[indexPath.row]
+        cell.allGroupsName.text = group.name
+        cell.allGroupsAva.image = group.groupAvatar
       
         return cell
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            groupsToShow = groups
+            tableView.reloadData()
+            return
+        }
+        groupsToShow = groupsToShow.filter{
+            $0.name.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
+    }
 
     /*
     // Override to support conditional editing of the table view.
