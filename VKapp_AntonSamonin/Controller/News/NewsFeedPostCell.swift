@@ -18,8 +18,8 @@ class NewsFeedPostCell: UITableViewCell {
     @IBOutlet weak var repostsCountLabel: UILabel!
     @IBOutlet weak var viewsCountLabel: UILabel!
     
-    override func layoutIfNeeded() { // Закругление
-        super .layoutIfNeeded()
+    override func layoutSubviews() {
+        super.layoutSubviews()
         self.authorAvatar.clipsToBounds = true
         self.authorAvatar.layer.cornerRadius = self.authorAvatar.frame.width/2
     }
@@ -33,6 +33,10 @@ class NewsFeedPostCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure(post: Post, group: NewsGroup, profile: NewsProfile) {
+        
     }
     
     override func prepareForReuse() {

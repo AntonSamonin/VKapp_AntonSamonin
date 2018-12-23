@@ -106,23 +106,27 @@ class VKService {
         }
     }
     
-    func loadNewsFeed(completion:(([NewsPost]?, Error?) -> Void)? = nil) {
+    func loadNewsFeedPost(completion:(([Post]?,[NewsGroup]?,[NewsProfile]?, Error?) -> Void)? = nil) {
         let path = "/method/newsfeed.get"
         let params: Parameters = [
             "access_token": Session.instance.token,
-            "filters": "post,photo", // сортировка по рейтингу
-            "source_ids": "<uid>,-<gid>",
+            "filters": "post",
+            "source_ids": "groups,friends",
+            "count": "40",
             "v": "5.87"
         ]
         Alamofire.request(baseUrl + path, method: .get, parameters: params).responseJSON {
             (response) in
             switch response.result {
             case.failure(let error):
-                completion?(nil,error)
+                completion?(nil,nil,nil,error)
             case.success(let value):
                 let json = JSON(value)
-                let newsfeed = json["response"]["items"].arrayValue.map {return NewsPost(json: $0)}
-                completion?(newsfeed,nil)
+                let newsfeed = json["response"]["items"].arrayValue.map {return Post(json: $0)}
+                let newsgroups = json["response"]["groups"].arrayValue.map{return NewsGroup(json: $0)}
+                let newsprofiles = json["response"]["profiles"].arrayValue.map{
+                    return NewsProfile(json: $0)}
+                completion?(newsfeed,newsgroups,newsprofiles,nil)
             }
         }
     }

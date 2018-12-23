@@ -9,36 +9,51 @@
 import UIKit
 
 class NewsFeedController: UITableViewController {
-
+   
+    private let vkService = VKService()
+    private var newsFeed: [Post]?
+    private var groups: [NewsGroup]?
+    private var profiles: [NewsProfile]?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.register(UINib(nibName: "NewsFeedPhotoCell", bundle: nil), forCellReuseIdentifier: "PhotoCell")
         tableView.register(UINib(nibName: "NewsFeedPostCell", bundle: nil), forCellReuseIdentifier: "PostCell")
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableView.automaticDimension
+        
+        vkService.loadNewsFeedPost() { [weak self] (newsFeed, groups, profiles, error)
+            in
+            if let error = error {
+             print(error.localizedDescription)
+                return
+            }
+            
+            guard let newsFeed = newsFeed, let groups = groups, let profiles = profiles, let self = self else {return}
+            
+            self.newsFeed = newsFeed
+            self.groups = groups
+            self.profiles = profiles
+        }
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return newsFeed?.count ?? 0
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        guard  let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? NewsFeedPostCell, let newsFeed = newsFeed, let groups = groups, let profiles = profiles else {return UITableViewCell()}
+        
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
