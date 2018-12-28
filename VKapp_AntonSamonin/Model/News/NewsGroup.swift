@@ -13,7 +13,7 @@ class NewsGroup {
     
     var id: Int
     var name: String
-    var avatar: String
+    var avatar = ""
     
     
     init(json: JSON) {

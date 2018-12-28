@@ -15,8 +15,8 @@ class MyFriendsCell: UITableViewCell {
         didSet {self.friendsName.textColor = UIColor.black }
     }
     
-    override func layoutIfNeeded() { // Закругление
-        super .layoutIfNeeded()
+    override func layoutSubviews() { // Закругление
+        super .layoutSubviews()
         self.friendsAva.clipsToBounds = true
         self.friendsAva.layer.cornerRadius = self.friendsAva.frame.width/2
     }

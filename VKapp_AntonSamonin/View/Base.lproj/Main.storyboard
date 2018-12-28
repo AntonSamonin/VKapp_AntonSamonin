@@ -203,7 +203,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group-icon" translatesAutoresizingMaskIntoConstraints="NO" id="q9a-NK-jKd">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q9a-NK-jKd">
                                             <rect key="frame" x="5" y="0.0" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="MDe-hM-WZt"/>
@@ -274,7 +274,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group-icon" translatesAutoresizingMaskIntoConstraints="NO" id="5CJ-PV-FmW">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5CJ-PV-FmW">
                                             <rect key="frame" x="5" y="0.0" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="ST6-Kv-Z0r"/>
@@ -346,7 +346,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2625478" translatesAutoresizingMaskIntoConstraints="NO" id="JTc-n6-NUp">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JTc-n6-NUp">
                                             <rect key="frame" x="5" y="0.0" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="0j9-C1-5jK"/>
@@ -495,7 +495,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RzH-Z4-dXh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1102.8985507246377" y="613.85869565217399"/>
+            <point key="canvasLocation" x="1103" y="689"/>
         </scene>
         <!--News-->
         <scene sceneID="iI4-lT-1UH">
@@ -521,10 +521,28 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="News" id="AcJ-In-2bn"/>
+                    <navigationItem key="navigationItem" title="News" id="yAK-ND-UAL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="55H-Y0-CqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1111" y="-813"/>
+            <point key="canvasLocation" x="2010" y="-757"/>
+        </scene>
+        <!--News-->
+        <scene sceneID="vx7-Mo-UUo">
+            <objects>
+                <navigationController id="Uh9-uC-oGU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="News" id="Zsj-vm-A0b"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VX6-7H-FRw">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="1Jt-CN-zfn" kind="relationship" relationship="rootViewController" id="xLf-u3-jyi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sz0-R7-NUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103" y="-757"/>
         </scene>
         <!--Vk-->
         <scene sceneID="a0B-US-LBa">
@@ -537,9 +555,9 @@
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="g3O-aR-JPD" kind="relationship" relationship="viewControllers" id="Z6f-7R-Hfd"/>
-                        <segue destination="qfX-lv-pLM" kind="relationship" relationship="viewControllers" id="mKg-6q-CwI"/>
-                        <segue destination="1Jt-CN-zfn" kind="relationship" relationship="viewControllers" id="IS2-ck-Ywo"/>
+                        <segue destination="qfX-lv-pLM" kind="relationship" relationship="viewControllers" id="okg-2Q-Ias"/>
+                        <segue destination="Uh9-uC-oGU" kind="relationship" relationship="viewControllers" id="630-77-mIh"/>
+                        <segue destination="g3O-aR-JPD" kind="relationship" relationship="viewControllers" id="ewm-ZX-64A"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qDK-eL-IfP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -547,8 +565,4 @@
             <point key="canvasLocation" x="1102.8985507246377" y="-49.728260869565219"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="2625478" width="512" height="512"/>
-        <image name="Group-icon" width="384" height="384"/>
-    </resources>
 </document>

@@ -16,8 +16,8 @@ class MyGroupsCell: UITableViewCell {
         }
     }
     
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
+    override func layoutSubviews() {
+        super.layoutSubviews()
         self.myGroupsAva.layer.cornerRadius = self.myGroupsAva.bounds.width/2
         self.myGroupsAva.clipsToBounds = true
     }

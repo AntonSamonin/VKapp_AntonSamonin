@@ -23,16 +23,19 @@ class VKService {
             "extended": "1",
             "count": "100",// Полная информация о группах
             "v": "5.87",
-        ]
+            ]
         Alamofire.request(baseUrl + path, method: .get, parameters: params).responseJSON { (response) in
-            switch response.result {
-            case.failure(let error):
-                completion?(nil,error)
-            case.success(let value):
-                let json = JSON(value)
-                let myGroups = json["response"]["items"].arrayValue.map{return Group(json: $0)}
-                completion?(myGroups,nil)
-//                print(value)
+            DispatchQueue.global().sync {
+                
+                switch response.result {
+                case.failure(let error):
+                    completion?(nil,error)
+                case.success(let value):
+                    let json = JSON(value)
+                    let myGroups = json["response"]["items"].arrayValue.map{return Group(json: $0)}
+                    completion?(myGroups,nil)
+                    //                print(value)
+                }
             }
         }
     }
@@ -49,14 +52,17 @@ class VKService {
         ]
         
         Alamofire.request(baseUrl + path, method: .get, parameters: params).responseJSON { (response) in
-            switch response.result {
-            case.failure(let error):
-                completion?(nil,error)
-            case.success(let value):
-                let json = JSON(value)
-                let searchGroups = json["response"]["items"].arrayValue.map {return Group(json: $0)}
-                completion?(searchGroups, nil)
-//                print(value)
+            DispatchQueue.global().sync {
+                
+                switch response.result {
+                case.failure(let error):
+                    completion?(nil,error)
+                case.success(let value):
+                    let json = JSON(value)
+                    let searchGroups = json["response"]["items"].arrayValue.map {return Group(json: $0)}
+                    completion?(searchGroups, nil)
+                    //                print(value)
+                }
             }
         }
     }
@@ -72,17 +78,19 @@ class VKService {
         ]
         
         Alamofire.request(baseUrl + path, method: .get, parameters: params).responseJSON { (response) in
-            switch response.result {
-            case.failure(let error):
-                completion?(nil,error)
-            case.success(let value):
-                let json = JSON(value)
-              let friends = json["response"]["items"].arrayValue.map {return User(json: $0) }
-                completion?(friends, nil)
-               
+            DispatchQueue.global().sync {
+                
+                switch response.result {
+                case.failure(let error):
+                    completion?(nil,error)
+                case.success(let value):
+                    let json = JSON(value)
+                    let friends = json["response"]["items"].arrayValue.map {return User(json: $0) }
+                    completion?(friends, nil)
                 }
             }
         }
+    }
     
     func loadUserAllPhotosAlamofire(ownerID: Int, completion: (([Photo]?, Error?) -> Void)? = nil) {   //возвращает все фотографии пользователя
         let path = "/method/photos.getAll"
@@ -95,13 +103,15 @@ class VKService {
         ]
         
         Alamofire.request(baseUrl + path, method: .get, parameters: params).responseJSON { (response) in
-            switch response.result {
-            case.failure(let error):
-                completion?(nil,error)
-            case.success(let value):
-                let json = JSON(value)
-                let photos = json["response"]["items"].arrayValue.map {return Photo(json: $0)}
-                completion?(photos,nil)
+            DispatchQueue.global().sync {
+                switch response.result {
+                case.failure(let error):
+                    completion?(nil,error)
+                case.success(let value):
+                    let json = JSON(value)
+                    let photos = json["response"]["items"].arrayValue.map {return Photo(json: $0)}
+                    completion?(photos,nil)
+                }
             }
         }
     }
@@ -110,23 +120,27 @@ class VKService {
         let path = "/method/newsfeed.get"
         let params: Parameters = [
             "access_token": Session.instance.token,
-            "filters": "post",
+            "filters": "photo,post",
             "source_ids": "groups,friends",
-            "count": "40",
-            "v": "5.87"
+            "v": "5.8"
         ]
         Alamofire.request(baseUrl + path, method: .get, parameters: params).responseJSON {
             (response) in
-            switch response.result {
-            case.failure(let error):
-                completion?(nil,nil,nil,error)
-            case.success(let value):
-                let json = JSON(value)
-                let newsfeed = json["response"]["items"].arrayValue.map {return Post(json: $0)}
-                let newsgroups = json["response"]["groups"].arrayValue.map{return NewsGroup(json: $0)}
-                let newsprofiles = json["response"]["profiles"].arrayValue.map{
-                    return NewsProfile(json: $0)}
-                completion?(newsfeed,newsgroups,newsprofiles,nil)
+            
+            DispatchQueue.global().sync {
+                switch response.result {
+                case.failure(let error):
+                    completion?(nil,nil,nil,error)
+                case.success(let value):
+                    let json = JSON(value)
+                    let newsfeeds = json["response"]["items"].arrayValue.map{Post(json: $0)}
+                    
+                    let newsgroups = json["response"]["groups"].arrayValue.map {NewsGroup(json: $0)}
+                    
+                    let newsprofiles = json["response"]["profiles"].arrayValue.map {NewsProfile(json: $0)}
+                    
+                    completion?(newsfeeds,newsgroups,newsprofiles,nil)
+                }
             }
         }
     }
@@ -137,3 +151,4 @@ class VKService {
     }
     
 }
+

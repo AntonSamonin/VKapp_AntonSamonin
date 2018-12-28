@@ -18,8 +18,8 @@ class NewsFeedPhotoCell: UITableViewCell {
     @IBOutlet weak var repostsCountLabel: UILabel!
     @IBOutlet weak var viewsCountLabel: UILabel!
     
-    override func layoutIfNeeded() { // Закругление
-        super .layoutIfNeeded()
+    override func layoutSubviews() { // Закругление
+        super .layoutSubviews()
         self.photoAuthorAvatar.clipsToBounds = true
         self.photoAuthorAvatar.layer.cornerRadius = self.photoAuthorAvatar.frame.width/2
     }
@@ -45,6 +45,28 @@ class NewsFeedPhotoCell: UITableViewCell {
         self.repostsCountLabel.text = nil
         self.viewsCountLabel.text = nil
       
+    }
+    
+    func configure(post: Post, postPhoto: PostPhoto, groups: [NewsGroup], profiles: [NewsProfile]) {
+        self.likesCountLabel.text = String(postPhoto.likes)
+        self.commentsCountLabel.text = String(postPhoto.comments)
+        self.repostsCountLabel.text = String(postPhoto.reposts)
+        self.viewsCountLabel.text = String(0)
+        self.photoView.kf.setImage(with: VKService.urlForAvatar(postPhoto.photo))
+        
+        if postPhoto.ownerId < 0 {
+            for group in groups where postPhoto.ownerId + group.id == 0 {
+                self.photoAuthorAvatar.kf.setImage(with: VKService.urlForAvatar(group.avatar))
+                self.photoAuthorLabel.text = group.name
+            }
+        }
+        else if postPhoto.ownerId > 0 {
+            for profile in profiles where postPhoto.ownerId - profile.id == 0 {
+                self.photoAuthorAvatar.kf.setImage(with: VKService.urlForAvatar(profile.avatar))
+                self.photoAuthorLabel.text = profile.firstName + " " + profile.lastName
+            }
+        }
+        
     }
     
 }

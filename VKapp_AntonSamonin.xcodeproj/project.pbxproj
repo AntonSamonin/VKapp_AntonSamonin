@@ -41,6 +41,8 @@
 		779661C92199754400152351 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779661C82199754400152351 /* Photo.swift */; };
 		77A498C7217E0ADD00DEF28C /* CustomIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A498C6217E0ADD00DEF28C /* CustomIndicator.swift */; };
 		77A97943218996D4007EBF89 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A97942218996D4007EBF89 /* Session.swift */; };
+		77CAF1F021D4FCBF00C8D703 /* PostPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CAF1EF21D4FCBF00C8D703 /* PostPhoto.swift */; };
+		77CAF1F221D511FF00C8D703 /* AttachmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CAF1F121D511FF00C8D703 /* AttachmentItem.swift */; };
 		77DEC6DA21CBE03400FFBB0A /* NewsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DEC6D921CBE03400FFBB0A /* NewsGroup.swift */; };
 		77DEC6DC21CBE15F00FFBB0A /* NewsProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DEC6DB21CBE15F00FFBB0A /* NewsProfile.swift */; };
 		77E9A8DE216D13FE005A52CE /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E9A8DD216D13FE005A52CE /* AvatarView.swift */; };
@@ -82,6 +84,8 @@
 		779661C82199754400152351 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		77A498C6217E0ADD00DEF28C /* CustomIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIndicator.swift; sourceTree = "<group>"; };
 		77A97942218996D4007EBF89 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		77CAF1EF21D4FCBF00C8D703 /* PostPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPhoto.swift; sourceTree = "<group>"; };
+		77CAF1F121D511FF00C8D703 /* AttachmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentItem.swift; sourceTree = "<group>"; };
 		77DEC6D921CBE03400FFBB0A /* NewsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsGroup.swift; sourceTree = "<group>"; };
 		77DEC6DB21CBE15F00FFBB0A /* NewsProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsProfile.swift; sourceTree = "<group>"; };
 		77E9A8DD216D13FE005A52CE /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
@@ -265,6 +269,8 @@
 				774E9BA92179FF72000DC7CB /* Post.swift */,
 				77DEC6D921CBE03400FFBB0A /* NewsGroup.swift */,
 				77DEC6DB21CBE15F00FFBB0A /* NewsProfile.swift */,
+				77CAF1EF21D4FCBF00C8D703 /* PostPhoto.swift */,
+				77CAF1F121D511FF00C8D703 /* AttachmentItem.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -409,6 +415,7 @@
 				7743B328215A71790060EA70 /* FriendsPhotoController.swift in Sources */,
 				779661C72198C5C300152351 /* Group.swift in Sources */,
 				77551ADE216E0BD60048ECAD /* LikeControl.swift in Sources */,
+				77CAF1F221D511FF00C8D703 /* AttachmentItem.swift in Sources */,
 				7764353721C7EB5E0079B1A5 /* FirebaseUser.swift in Sources */,
 				77A498C7217E0ADD00DEF28C /* CustomIndicator.swift in Sources */,
 				7743B323215A70250060EA70 /* AllGroupsController.swift in Sources */,
@@ -416,6 +423,7 @@
 				77017652215246D60088EA42 /* AppDelegate.swift in Sources */,
 				7743B318215A6D300060EA70 /* MyFriendsController.swift in Sources */,
 				774E9BCC217D1C53000DC7CB /* OpenPhoto.swift in Sources */,
+				77CAF1F021D4FCBF00C8D703 /* PostPhoto.swift in Sources */,
 				7733228021C8F7AC00718E7A /* NewsFeedController.swift in Sources */,
 				7743B31E215A6ECD0060EA70 /* MyGroupsController.swift in Sources */,
 				77017664215247290088EA42 /* LoginFormController.swift in Sources */,
